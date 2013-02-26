@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -26,7 +26,7 @@ import com.cloudconnected.common.system.domain.YesNoType;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-@MappedSuperclass
+@Entity
 public class User extends EntityBase implements UserDetails {
 
 	@NotNull
@@ -62,9 +62,7 @@ public class User extends EntityBase implements UserDetails {
     
     @NotNull
     @Enumerated(EnumType.STRING)
-    private YesNoType changePassword;
-    
-    
+    private YesNoType changePassword;    
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
     private List<SecurityGroupMember> groupMembers = new LinkedList<SecurityGroupMember>();

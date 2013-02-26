@@ -100,6 +100,14 @@ public class EntityBase implements java.io.Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
 	public java.util.Calendar getCreatedTimestamp() {
 		return createdTimestamp;
@@ -107,8 +115,7 @@ public class EntityBase implements java.io.Serializable{
 
 	public void setCreatedTimestamp(java.util.Calendar createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
-	}
-	
+	}	
 
 	public String getUpdatedBy() {    
         return this.updatedBy;        
@@ -125,13 +132,5 @@ public class EntityBase implements java.io.Serializable{
 	public void setUpdatedTimestamp(Calendar updatedTimestamp) {    
         this.updatedTimestamp = updatedTimestamp;        
     }
-
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
-	}
 
 }

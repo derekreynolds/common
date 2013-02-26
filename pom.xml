@@ -24,7 +24,8 @@
   <modules>
     <module>common-util</module>
     <module>common-system</module>
-    <module>common-web</module>    
+    <module>common-web</module>
+    <module>common-security</module>
   </modules>
   <repositories>
 	    <repository>
