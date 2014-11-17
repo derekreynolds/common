@@ -1,7 +1,6 @@
 package com.cloudconnected.common.security.service;
 
-
-
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 /**
@@ -9,7 +8,7 @@ package com.cloudconnected.common.security.service;
  * @author Derek Reynolds
  *
  */
-public interface SecurityService {
+public interface SecurityService extends UserDetailsService {
 	
 
 }

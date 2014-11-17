@@ -4,21 +4,28 @@
 package com.cloudconnected.common.security.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudconnected.common.security.model.User;
 import com.cloudconnected.common.security.repository.UserRepository;
 
 
-
-
 @Transactional(readOnly=true)
-public class SecurityServiceImpl extends JdbcDaoImpl implements SecurityService {
+@Service("securityService")
+public class SecurityServiceImpl implements SecurityService {
+	
+	/**
+	 * Get log object from log factory.
+	 */
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private UserRepository userRepository;	
@@ -30,14 +37,13 @@ public class SecurityServiceImpl extends JdbcDaoImpl implements SecurityService 
 		
 		logger.debug("Entering with " + username);
 		
-		User user = userRepository.findByEmailAddress(username.toUpperCase());
+		Optional<User> user = userRepository.findByEmailAddress(username.toLowerCase());
 		
 		// Fault the relationship now. Later will cause ex-session lazy instantiation
-		if(user != null) {
-			user.getAuthorities();
-		}
+		if(user.isPresent() && (user.get().getAuthorities().size() == 0)) 
+			throw new UsernameNotFoundException(username + " no authorities found.");		
 		
-		return user;
+		return user.orElseThrow(() -> new UsernameNotFoundException(username + " not found."));
 	}
 
 	
