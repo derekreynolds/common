@@ -3,7 +3,9 @@
  */
 package com.evolvingreality.common.datetime.util;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -25,20 +27,18 @@ public abstract class DateUtil {
 	 * @param year 
 	 * @param numberOfPastYears
 	 * @param numberOfFutureYears
-	 * @return and array of 
+	 * @return an {@link List} of Strings.
 	 */
-	public static String[] getYearSequence(int year, int numberOfPastYears, int numberOfFutureYears) {
+	public static List<String> getYearSequence(int year, int numberOfPastYears, int numberOfFutureYears) {
 		
-		String[] years = new String[numberOfPastYears + numberOfFutureYears + 1];
-			
-		int yearCount = 0;
+		List<String> years = new ArrayList<>(numberOfPastYears + numberOfFutureYears + 1);			
 		
 		for(int i = 0; i < numberOfPastYears; i++) {
-			years[yearCount++] = String.valueOf(year - (numberOfPastYears - i));
+			years.add(String.valueOf(year - (numberOfPastYears - i)));
 		}
 		
 		for(int i = 0; i <= numberOfFutureYears; i++) {
-			years[yearCount++] = String.valueOf(year + i);
+			years.add(String.valueOf(year + i));
 		}
 		
 		return years;

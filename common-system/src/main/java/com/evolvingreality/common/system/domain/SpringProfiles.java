@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evolvingreality.common.persistence.domain;
+package com.evolvingreality.common.system.domain;
 
 
 /**
@@ -12,6 +12,7 @@ package com.evolvingreality.common.persistence.domain;
 public enum SpringProfiles {
 	
 	LIQUIBASE("liquibase"),
+	CLOUD("cloud"),
 	DEVELOPMENT("development"),
 	SIT("sit"),
 	UAT("uat"),

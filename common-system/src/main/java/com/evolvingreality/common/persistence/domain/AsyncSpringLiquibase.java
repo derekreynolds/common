@@ -5,7 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
+
+import com.evolvingreality.common.system.domain.SpringProfiles;
 
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
@@ -25,6 +28,7 @@ import liquibase.integration.spring.SpringLiquibase;
  *         <li>In production, this can help your application run on platforms like Heroku, where it must start/restart very quickly</li>
  *     </ul>
  */
+@Component
 public class AsyncSpringLiquibase extends SpringLiquibase {
 
     private final Logger log = LoggerFactory.getLogger(getClass());

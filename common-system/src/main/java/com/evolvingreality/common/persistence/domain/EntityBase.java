@@ -1,22 +1,15 @@
-package com.evolvingreality.common.persistence.model;
+package com.evolvingreality.common.persistence.domain;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -24,8 +17,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ReflectionUtils;
 
@@ -37,14 +29,11 @@ import org.springframework.util.ReflectionUtils;
  * @since 1.0
  */
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class EntityBase implements java.io.Serializable {
 
 	protected static transient final long serialVersionUID = -4253619087259962715L;
 	
-    @Id
-    @GeneratedValue(strategy=GenerationType.TABLE)
-    @Column(name = "id")
-    private Long id;
 
     @Version
     @Column(name = "version")
@@ -87,13 +76,6 @@ public class EntityBase implements java.io.Serializable {
 		
 	}	
 	
-    public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
 	public Long getVersion() {
 		return version;
@@ -136,9 +118,13 @@ public class EntityBase implements java.io.Serializable {
     }
     
     @Override
-   	public int hashCode() {    	
+   	public int hashCode() { 
+    	
+    	Method thisMethod  = ReflectionUtils.findMethod(this.getClass(), "getId");
+    	Long thisId = (Long) ReflectionUtils.invokeMethod(thisMethod, this);
+    	
     	return new HashCodeBuilder()
-    		.append(getId())
+    		.append(thisId)
     		.toHashCode();     		
    	}
 

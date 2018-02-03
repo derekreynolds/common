@@ -71,7 +71,7 @@ public abstract class CalendarUtil {
 	 * @param day
 	 * @return
 	 */
-	public static Calendar rewindToCalendarDay(final Calendar calendar, int day) {
+	public static Calendar rewindToDayOfWeek(final Calendar calendar, int day) {
 		
 		Calendar newCalendar = (Calendar)calendar.clone();
 		
@@ -90,7 +90,7 @@ public abstract class CalendarUtil {
 	 * @param day
 	 * @return
 	 */
-	public static Calendar forwardToCalendarDay(final Calendar calendar, int day) {
+	public static Calendar forwardToDayOfWeek(final Calendar calendar, int day) {
 		
 		Calendar newCalendar = (Calendar)calendar.clone();
 		
